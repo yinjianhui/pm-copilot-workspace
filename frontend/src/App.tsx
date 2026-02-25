@@ -6,6 +6,8 @@ import { WorkspaceList } from './pages/WorkspaceList';
 import { EpicDetail } from './pages/EpicDetail';
 import { RequirementDetail } from './pages/RequirementDetail';
 import { PRDEditor } from './pages/PRDEditor';
+import { TaskManagement } from './pages/TaskManagement';
+import { TaskDetail } from './pages/TaskDetail';
 import './styles/globals.css';
 
 const App: React.FC = () => {
@@ -15,6 +17,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<WorkspaceList />} />
           <Route path="/workspace/:workspaceId" element={<WorkspaceList />} />
+          <Route path="/workspace/:workspaceId/tasks" element={<TaskManagement />} />
+          <Route path="/workspace/:workspaceId/task/:taskId" element={<TaskDetail />} />
           <Route path="/epic/:epicId" element={<EpicDetail />} />
           <Route path="/requirement/:requirementId" element={<RequirementDetail />} />
           <Route path="/requirement/:requirementId/prd" element={<PRDEditor />} />

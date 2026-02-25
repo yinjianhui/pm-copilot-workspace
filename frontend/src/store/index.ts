@@ -4,6 +4,7 @@ import requirementReducer from './requirementSlice';
 import epicReducer from './epicSlice';
 import conversationReducer from './conversationSlice';
 import prdReducer from './prdSlice';
+import taskReducer from './taskSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     epics: epicReducer,
     conversations: conversationReducer,
     prds: prdReducer,
+    tasks: taskReducer,
   },
 });
 
