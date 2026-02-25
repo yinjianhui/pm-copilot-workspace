@@ -1,4 +1,5 @@
 # Data models
+from app.models.user import User
 from app.models.workspace import Workspace
 from app.models.epic import Epic, EpicStatus, EpicPriority
 from app.models.requirement import Requirement, RequirementStatus
@@ -8,6 +9,7 @@ from app.models.conversation import Conversation, ConversationMessage, Conversat
 from app.models.prd import PRDDocument, PRDVersion, PRDStatus
 
 __all__ = [
+    'User',
     'Workspace',
     'Epic',
     'EpicStatus',

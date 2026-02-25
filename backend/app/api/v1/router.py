@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1 import workspaces, epics, requirements, health, conversations, prds, tasks
+from app.api.v1 import workspaces, epics, requirements, health, conversations, prds, tasks, auth
 
 api_router = APIRouter()
 
@@ -23,3 +23,6 @@ api_router.include_router(prds.router, prefix="/prds", tags=["prds"])
 
 # Task endpoints
 api_router.include_router(tasks.router, prefix="/tasks", tags=["tasks"])
+
+# Auth endpoints
+api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
