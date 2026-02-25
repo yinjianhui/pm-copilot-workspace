@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../hooks/useAppSelector';
-import { useAppDispatch as useTypedDispatch } from '../../hooks/useAppDispatch';
-import { sendMessage, clearMessages } from '../../store/conversationSlice';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { sendMessage } from '../../store/conversationSlice';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import type { Message } from '../../types/conversation';
 
@@ -16,7 +16,7 @@ export const ConversationView: React.FC<ConversationViewProps> = ({
 }) => {
   const [inputText, setInputText] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const dispatch = useTypedDispatch();
+  const dispatch = useAppDispatch();
 
   const { messages, sendingMessage, error } = useAppSelector((state) => state.conversations);
 

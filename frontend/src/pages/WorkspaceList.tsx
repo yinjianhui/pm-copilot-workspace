@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../hooks/useAppSelector';
-import { useAppDispatch as useTypedDispatch } from '../hooks/useAppDispatch';
+import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 import { fetchWorkspaces, createWorkspace } from '../store/workspaceSlice';
 import { WorkspaceCard } from '../components/workspace/WorkspaceCard';
 import { Button } from '../components/common/Button';
@@ -9,10 +8,10 @@ import { Modal } from '../components/common/Modal';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 export const WorkspaceList: React.FC = () => {
-  const navigate = useNavigate();
-  const dispatch = useTypedDispatch();
+  const dispatch = useAppDispatch();
 
   const { workspaces, loading, error } = useAppSelector((state) => state.workspaces);
+  const { user } = useAppSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [newWorkspaceName, setNewWorkspaceName] = React.useState('');
   const [newWorkspaceDesc, setNewWorkspaceDesc] = React.useState('');
@@ -22,13 +21,14 @@ export const WorkspaceList: React.FC = () => {
   }, [dispatch]);
 
   const handleCreateWorkspace = async () => {
-    if (!newWorkspaceName.trim()) return;
+    if (!newWorkspaceName.trim() || !user?.id) return;
 
     try {
       await dispatch(
         createWorkspace({
           name: newWorkspaceName,
           description: newWorkspaceDesc,
+          owner_id: user.id,
         })
       ).unwrap();
       setIsModalOpen(false);

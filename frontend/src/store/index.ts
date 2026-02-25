@@ -5,6 +5,7 @@ import epicReducer from './epicSlice';
 import conversationReducer from './conversationSlice';
 import prdReducer from './prdSlice';
 import taskReducer from './taskSlice';
+import authReducer from './authSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     conversations: conversationReducer,
     prds: prdReducer,
     tasks: taskReducer,
+    auth: authReducer,
   },
 });
 

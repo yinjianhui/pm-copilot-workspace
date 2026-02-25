@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../hooks/useAppSelector';
-import { useAppDispatch as useTypedDispatch } from '../hooks/useAppDispatch';
-import { fetchEpics, setCurrentEpic } from '../store/epicSlice';
+import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { setCurrentEpic } from '../store/epicSlice';
 import { fetchRequirements } from '../store/requirementSlice';
 import { RequirementCard } from '../components/requirement/RequirementCard';
 import { Button } from '../components/common/Button';
@@ -11,7 +11,7 @@ import { LoadingSpinner } from '../components/common/LoadingSpinner';
 export const EpicDetail: React.FC = () => {
   const { epicId } = useParams<{ epicId: string }>();
   const navigate = useNavigate();
-  const dispatch = useTypedDispatch();
+  const dispatch = useAppDispatch();
 
   const { epics, currentEpic, loading } = useAppSelector((state) => state.epics);
   const { requirements } = useAppSelector((state) => state.requirements);

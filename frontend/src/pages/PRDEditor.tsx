@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../hooks/useAppSelector';
-import { useAppDispatch as useTypedDispatch } from '../hooks/useAppDispatch';
+import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 import { fetchPRD, generatePRD, updatePRDContent, updatePRD } from '../store/prdSlice';
 import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
@@ -10,7 +10,7 @@ import { LoadingSpinner } from '../components/common/LoadingSpinner';
 export const PRDEditor: React.FC = () => {
   const { requirementId } = useParams<{ requirementId: string }>();
   const navigate = useNavigate();
-  const dispatch = useTypedDispatch();
+  const dispatch = useAppDispatch();
 
   const { currentPRD, loading, generating, saving, error } = useAppSelector((state) => state.prds);
 

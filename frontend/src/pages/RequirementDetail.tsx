@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../hooks/useAppSelector';
-import { useAppDispatch as useTypedDispatch } from '../hooks/useAppDispatch';
+import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 import { fetchRequirements } from '../store/requirementSlice';
 import { fetchConversations, createConversation } from '../store/conversationSlice';
 import { fetchPRD } from '../store/prdSlice';
@@ -12,7 +12,7 @@ import { LoadingSpinner } from '../components/common/LoadingSpinner';
 export const RequirementDetail: React.FC = () => {
   const { requirementId } = useParams<{ requirementId: string }>();
   const navigate = useNavigate();
-  const dispatch = useTypedDispatch();
+  const dispatch = useAppDispatch();
 
   const { requirements, loading } = useAppSelector((state) => state.requirements);
   const { conversations } = useAppSelector((state) => state.conversations);

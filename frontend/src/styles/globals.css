@@ -21,6 +21,10 @@
     @apply bg-gray-200 text-gray-900 hover:bg-gray-300;
   }
 
+  .btn-ghost {
+    @apply bg-transparent text-gray-700 hover:bg-gray-100;
+  }
+
   .card {
     @apply bg-white rounded-lg shadow-md p-6;
   }
