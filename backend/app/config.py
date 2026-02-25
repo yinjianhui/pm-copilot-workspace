@@ -29,8 +29,11 @@ class Settings(BaseSettings):
     # CORS
     CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://localhost:3000"]
 
-    # Claude AI
+    # AI Model API Keys
     ANTHROPIC_API_KEY: Optional[str] = None
+    OPENAI_API_KEY: Optional[str] = None
+    DEEPSEEK_API_KEY: Optional[str] = None
+    GLM_API_KEY: Optional[str] = None
 
     # Vector Store
     CHROMA_PERSIST_DIRECTORY: str = "./chroma_db"
