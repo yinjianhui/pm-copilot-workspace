@@ -12,6 +12,15 @@ class TaskStatus(str, enum.Enum):
     in_progress = "in_progress"
     done = "done"
     blocked = "blocked"
+    cancelled = "cancelled"
+
+
+class TaskPriority(str, enum.Enum):
+    """Task priority enumeration."""
+    low = "low"
+    medium = "medium"
+    high = "high"
+    critical = "critical"
 
 
 class Task(Base):
@@ -24,6 +33,7 @@ class Task(Base):
     title = Column(String(255), nullable=False)
     description = Column(String(1000), nullable=True)
     status = Column(SQLEnum(TaskStatus), default=TaskStatus.todo, nullable=False)
+    priority = Column(SQLEnum(TaskPriority), default=TaskPriority.medium, nullable=False)
     assignee_id = Column(String(36), nullable=True)
     estimated_hours = Column(Float, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
