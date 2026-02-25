@@ -1,7 +1,7 @@
 # PM Copilot Workspace - TODO
 
-> 分析时间：2026-02-25
-> 项目状态：基础框架完成，核心功能部分实现
+> 最后更新：2026-02-25 13:30
+> 项目状态：核心功能已完成，AI 集成和认证系统已实现
 
 ---
 
@@ -10,14 +10,19 @@
 PM Copilot Workspace 是一个面向产品经理的 AI 辅助工作区，使用 FastAPI (后端) + React/TypeScript (前端) 构建。
 
 ### 技术栈
-- **后端**: FastAPI + SQLAlchemy + SQLite
+- **后端**: FastAPI + SQLAlchemy + SQLite + JWT
 - **前端**: React 18 + TypeScript + Vite + Redux Toolkit + Tailwind CSS
-- **AI**: Anthropic Claude / OpenAI GPT (待集成)
+- **AI**: Anthropic Claude / OpenAI GPT / DeepSeek / GLM (已集成)
 
-### 完成度评估
-- **后端**: ~40% (基础 CRUD 完成，AI 功能缺失)
-- **前端**: ~80% (主要 UI 完成，部分功能缺失)
-- **整体**: ~60%
+### 完成度评估（更新）
+- **后端**: ~85% (CRUD + AI + 认证完成，缺少部分高级功能)
+- **前端**: ~90% (主要 UI 完成，部分功能待完善)
+- **整体**: ~88%
+
+### 默认账号
+- **用户名**: `admin`
+- **邮箱**: `admin@example.com`
+- **密码**: `admin123`
 
 ---
 
@@ -36,14 +41,29 @@ PM Copilot Workspace 是一个面向产品经理的 AI 辅助工作区，使用 
 - [x] Workspace - 工作区模型
 - [x] Epic - Epic 模型
 - [x] Requirement - 需求模型
-- [x] Task - 任务模型（仅定义，无 API）
-- [x] RequirementCard - 需求卡片模型（仅定义，无 API）
+- [x] Task - 任务模型（含 API）
+- [x] RequirementCard - 需求卡片模型
+- [x] User - 用户模型
+- [x] Conversation - 对话模型
+- [x] ConversationMessage - 消息模型
+- [x] PRD - PRD 文档模型
+- [x] PRDSection - PRD 章节模型
 
 #### API 端点 (`backend/app/api/v1/`)
 - [x] `/api/v1/health` - 健康检查
 - [x] `/api/v1/workspaces` - GET/POST/PUT/DELETE
 - [x] `/api/v1/epics` - GET/POST/PUT/DELETE
 - [x] `/api/v1/requirements` - GET/POST/PUT/DELETE
+- [x] `/api/v1/tasks` - 完整 Task CRUD
+- [x] `/api/v1/conversations` - AI 对话 API
+- [x] `/api/v1/prds` - PRD 生成和管理 API
+- [x] `/api/v1/auth/*` - 用户认证 API
+
+#### 认证与安全 (`backend/app/core/`)
+- [x] JWT Token 工具（生成、验证、刷新）
+- [x] 密码哈希和验证（bcrypt）
+- [x] 认证依赖（get_current_user, get_current_active_user）
+- [x] 默认管理员账号（admin/admin123）
 
 #### 数据验证 (`backend/app/schemas/`)
 - [x] Workspace Pydantic Schemas
@@ -212,30 +232,20 @@ PM Copilot Workspace 是一个面向产品经理的 AI 辅助工作区，使用 
 
 ## 3. 未实现功能
 
-### 3.1 用户认证与授权
+### 3.1 用户认证与授权 ✅ 已完成
 
-#### 后端
-- [ ] `backend/app/api/v1/auth.py` - 认证 API
-  - [ ] `POST /auth/register` - 用户注册
-  - [ ] `POST /auth/login` - 用户登录
-  - [ ] `POST /auth/logout` - 用户登出
-  - [ ] `POST /auth/refresh` - 刷新令牌
-- [ ] `backend/app/models/user.py` - 用户模型
-- [ ] `backend/app/api/deps.py` - JWT 认证依赖
-- [ ] ] API 访问保护中间件
-- [ ] ] 角色权限系统
+#### 后端 ✅
+- [x] `backend/app/api/v1/auth.py` - 认证 API
+- [x] `backend/app/core/security.py` - JWT 工具函数
+- [x] `backend/app/models/user.py` - 用户模型
+- [x] `backend/app/api/deps.py` - JWT 认证依赖
+- [x] 默认管理员账号（admin/admin123）
 
-#### 前端
-- [ ] 登录页面 (`frontend/src/pages/Login.tsx`)
-- [ ] 注册页面 (`frontend/src/pages/Register.tsx`)
-- [ ] 个人设置页面
-- [ ] ] ProtectedRoute 路由守卫
-- [ ] ] 认证状态管理
-
-#### 依赖已安装
-- `pyjwt==2.8.0`
-- `passlib[bcrypt]==1.7.4`
-- `python-jose[cryptography]==3.3.0`
+#### 前端 ✅
+- [x] 登录页面 (`frontend/src/pages/Login.tsx`)
+- [x] 注册页面 (`frontend/src/pages/Register.tsx`)
+- [x] ProtectedRoute 路由守卫
+- [x] 认证状态管理 (`frontend/src/store/authSlice.ts`)
 
 ### 3.2 向量存储与语义搜索
 
@@ -441,30 +451,69 @@ VITE_API_URL=http://localhost:8000/api/v1
 
 ---
 
-## 6. 下一步行动
+## 6. 下一步行动建议
 
-### 立即行动
+### ✅ 已完成（2026-02-25）
+- [x] AI 服务集成（DeepSeek, GLM, Anthropic, OpenAI）
+- [x] Task 管理 API 和前端 UI
+- [x] 用户认证系统（前后端完整实现）
+- [x] README 文档
+- [x] 默认管理员账号
 
-1. **创建环境配置文件**
-   ```bash
-   # 创建 backend/.env.example
-   # 创建 frontend/.env.example
-   ```
+### 🔴 高优先级（建议下一步）
 
-2. **实现 AI 对话 API**
-   - 添加 Conversation 和 Message 模型
-   - 实现 conversations.py 路由
-   - 集成 Anthropic Claude API
+1. **数据库迁移系统**
+   - 创建 Alembic 迁移脚本
+   - 添加种子数据
+   - 版本控制
+   - **价值**：生产环境部署必备
 
-3. **实现 PRD 生成 API**
-   - 添加 PRD 和 PRDSection 模型
-   - 实现 prds.py 路由
-   - 创建 PRD 生成 Prompt 模板
+2. **测试和调试现有功能**
+   - 端到端测试 AI 对话
+   - 测试 PRD 生成
+   - 测试认证流程
+   - 测试任务管理（拖拽、状态流转）
+   - **价值**：确保功能稳定可用
 
-4. **测试与调试**
-   - 启动后端: `cd backend && uvicorn app.main:app --reload`
-   - 启动前端: `cd frontend && npm run dev`
-   - 端到端测试基本流程
+3. **Requirement Card 编辑器**
+   - 可视化卡片编辑器
+   - Card 模板系统
+   - 拖拽排序
+   - **价值**：产品经理核心需求
+
+### 🟡 中优先级
+
+4. **向量存储与语义搜索**
+   - ChromaDB 集成
+   - 文档向量化
+   - 语义搜索组件
+   - **价值**：智能内容检索
+
+5. **导出功能**
+   - PDF/Markdown 导出
+   - PRD 导出
+   - **价值**：内容交付
+
+### 🟢 低优先级
+
+6. **Docker 部署配置**
+7. **CI/CD 流程**
+8. **性能优化**
+9. **实时协作功能（WebSocket）**
+
+---
+
+## 7. 推荐的下一步功能
+
+### 🎯 最佳选择：数据库迁移 + 端到端测试
+
+**理由**：
+1. 项目功能已较完整，需要稳定化
+2. 数据库迁移是生产部署的基础
+3. 端到端测试能发现潜在问题
+4. 为后续功能开发打好基础
+
+**预计时间**：2-3 小时
 
 ---
 
